@@ -1,5 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { IdSpec, PointofinterestSpec, PointofinterestSpecPlus, PointofinterestArraySpec } from "../models/joi-schemas.js";
+import { validationError } from "./logger.js";
 
 export const pointofinterestApi = {
   find: {
@@ -12,6 +14,10 @@ export const pointofinterestApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    response: { schema: PointofinterestArraySpec, failAction: validationError },
+    description: "Get all pointofinterestApi",
+    notes: "Returns all pointofinterestApi",
   },
 
   findOne: {
@@ -27,6 +33,11 @@ export const pointofinterestApi = {
         return Boom.serverUnavailable("No pointofinterest with this id");
       }
     },
+    tags: ["api"],
+    description: "Find a Pointofinterest",
+    notes: "Returns a pointofinterest",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PointofinterestSpecPlus, failAction: validationError },
   },
 
   create: {
@@ -42,6 +53,11 @@ export const pointofinterestApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create a pointofinterest",
+    notes: "Returns the newly created pointofinterest",
+    validate: { payload: PointofinterestSpec },
+    response: { schema: PointofinterestSpecPlus, failAction: validationError },
   },
 
   deleteAll: {
@@ -54,6 +70,8 @@ export const pointofinterestApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all pointofinterestApi",
   },
 
   deleteOne: {
@@ -70,5 +88,8 @@ export const pointofinterestApi = {
         return Boom.serverUnavailable("No Pointofinterest with this id");
       }
     },
+    tags: ["api"],
+    description: "Delete a pointofinterest",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 };

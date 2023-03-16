@@ -21,13 +21,23 @@ export const UserSpecPlus = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
-export const PointofinterestSpec = {
-  title: Joi.string().required(),
-  county: Joi.string().required(),
-  description: Joi.string().required(),
-  latitude: Joi.number().allow("").optional(),
-  longitude: Joi.number().allow("").optional(),
-};
+export const PointofinterestSpec = Joi.object()
+  .keys({
+    title: Joi.string().required(),
+    county: Joi.string().required(),
+    description: Joi.string().required(),
+    latitude: Joi.number().allow("").optional(),
+    longitude: Joi.number().allow("").optional(),
+    countryid: IdSpec,
+  })
+  .label("Pointofinterest");
+
+export const PointofinterestSpecPlus = PointofinterestSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PointofinterestPlus");
+
+export const PointofinterestArraySpec = Joi.array().items(PointofinterestSpecPlus).label("PointofinterestArray");
 
 export const CountrySpec = {
   title: Joi.string().required(),
