@@ -1,4 +1,4 @@
-export const serviceUrl = "https://placemarkdiff3.onrender.com/";
+export const serviceUrl = "https://placemarkdiff3.onrender.com";
 
 export const maggie = {
   firstName: "Maggie",
