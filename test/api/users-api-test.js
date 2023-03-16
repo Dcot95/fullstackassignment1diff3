@@ -4,6 +4,8 @@ import { placemarkService } from "./placemark-service.js";
 import { maggie, testUsers } from "../fixtures.js";
 import { db } from "../../src/models/db.js";
 
+const users = new Array(testUsers.length);
+
 suite("User API tests", () => {
   setup(async () => {
     await placemarkService.deleteAllUsers();
@@ -29,8 +31,8 @@ suite("User API tests", () => {
   });
 
   test("get a user", async () => {
-    const returnedUser = await placemarkService.getUser(testUsers[0]._id);
-    assert.deepEqual(testUsers[0], returnedUser);
+    const returnedUser = await placemarkService.getUser(users[0]._id);
+    assert.deepEqual(users[0], returnedUser);
   });
 
   test("get a user - bad id", async () => {
@@ -39,16 +41,18 @@ suite("User API tests", () => {
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No User with this id");
+      // assert.equal(error.response.data.statusCode, 503);
     }
   });
 
   test("get a user - deleted user", async () => {
     await placemarkService.deleteAllUsers();
     try {
-      const returnedUser = await placemarkService.getUser(testUsers[0]._id);
+      const returnedUser = await placemarkService.getUser(users[0]._id);
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No User with this id");
+      assert.equal(error.response.data.statusCode, 404);
     }
   });
 });
