@@ -39,6 +39,17 @@ export const PointofinterestSpecPlus = PointofinterestSpec.keys({
 
 export const PointofinterestArraySpec = Joi.array().items(PointofinterestSpecPlus).label("PointofinterestArray");
 
-export const CountrySpec = {
-  title: Joi.string().required(),
-};
+export const CountrySpec = Joi.object()
+  .keys({
+    title: Joi.string().required().example("Japan"),
+    userid: IdSpec,
+    pointofinterests: PointofinterestArraySpec,
+  })
+  .label("Country");
+
+export const CountrySpecPlus = CountrySpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("CountryPlus");
+
+export const CountryArraySpec = Joi.array().items(CountrySpecPlus).label("CountryArray");
