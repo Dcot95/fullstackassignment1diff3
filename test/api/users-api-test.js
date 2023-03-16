@@ -11,7 +11,7 @@ suite("User API tests", () => {
     await placemarkService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      testUsers[0] = await placemarkService.createUser(testUsers[i]);
+      users[0] = await placemarkService.createUser(testUsers[i]);
     }
   });
   teardown(async () => {});
