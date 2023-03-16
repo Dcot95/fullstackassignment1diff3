@@ -8,10 +8,14 @@ suite("Pointofinterest API tests", () => {
   let canada = null;
 
   setup(async () => {
-    await placemarkService.deleteAllCountrys();
-    await placemarkService.deleteAllUsers();
-    await placemarkService.deleteAllPointofinterests();
+    placemarkService.clearAuth();
     user = await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggie);
+    await placemarkService.deleteAllCountrys();
+    await placemarkService.deleteAllPointofinterests();
+    await placemarkService.deleteAllUsers();
+    user = await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggie);
     kerry.userid = user._id;
     canada = await placemarkService.createCountry(kerry);
   });
