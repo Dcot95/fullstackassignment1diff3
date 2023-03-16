@@ -5,7 +5,7 @@ import { maggie } from "../fixtures.js";
 
 suite("Authentication API tests", async () => {
   setup(async () => {
-    await placemarkService.clearAuth();
+    placemarkService.clearAuth();
     await placemarkService.createUser(maggie);
     await placemarkService.authenticate(maggie);
     await placemarkService.deleteAllUsers();
@@ -28,7 +28,7 @@ suite("Authentication API tests", async () => {
   });
 
   test("check Unauthorized", async () => {
-    await placemarkService.clearAuth();
+    placemarkService.clearAuth();
     try {
       await placemarkService.deleteAllUsers();
       assert.fail("Route not protected");
