@@ -79,3 +79,8 @@ export const testPointofinterests = [
     longitude: -8.6832,
   },
 ];
+
+export const maggieCredentials = {
+  email: "maggie@simpson.com",
+  password: "secret",
+};
