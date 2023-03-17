@@ -5,7 +5,9 @@ import { validationError } from "./logger.js";
 
 export const pointofinterestApi = {
   find: {
-    auth: "jwt",
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const pointofinterests = await db.pointofinterestStore.getAllPointofinterests();
@@ -21,7 +23,9 @@ export const pointofinterestApi = {
   },
 
   findOne: {
-    auth: "jwt",
+    auth: {
+      strategy: "jwt",
+    },
     async handler(request) {
       try {
         const pointofinterest = await db.pointofinterestStore.getPointofinterestById(request.params.id);
@@ -41,7 +45,9 @@ export const pointofinterestApi = {
   },
 
   create: {
-    auth: "jwt",
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const pointofinterest = await db.pointofinterestStore.addPointofinterest(request.params.id, request.payload);
@@ -61,7 +67,9 @@ export const pointofinterestApi = {
   },
 
   deleteAll: {
-    auth: "jwt",
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.pointofinterestStore.deleteAllPointofinterests();
@@ -75,7 +83,9 @@ export const pointofinterestApi = {
   },
 
   deleteOne: {
-    auth: "jwt",
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const pointofinterest = await db.pointofinterestStore.getPointofinterestById(request.params.id);
